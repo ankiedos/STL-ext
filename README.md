@@ -23,4 +23,4 @@ Dodatki do różnych standardowych bibliotek. Add-ons for various standard libra
 
 
 ### przestrzeń nazw out/namespace out:
-- wektor<<vec;--na podstawie Fureeish/easy-library wyświetlanie std::vector / based on https://github.com/Fureeish/easy-library.git printing the std::vector
+- wektor<<vec;--na podstawie https://github.com/Fureeish/easy-library.git wyświetlanie std::vector/based on https://github.com/Fureeish/easy-library.git printing the std::vector
