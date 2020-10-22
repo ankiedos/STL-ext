@@ -9,9 +9,6 @@
 A simple namespace library
 */
 
-#ifndef GLIBCXX_SIMPLE_NAMESPACE_LIBRARY_HPP_INCLUDED
-#define GLIBCXX_SIMPLE_NAMESPACE_LIBRARY_HPP_INCLUDED
-
 #include <iostream>
 #include <concepts>
 using namespace std;
