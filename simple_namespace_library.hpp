@@ -43,7 +43,7 @@ namespace elementaryArithmetic
 
 namespace out
 {
-        ostream& operator<<(ostream& wektor, range auto&& zakres) requires (!is_convertible_v<decltype(range), string>)
+        ostream& operator<<(ostream& wektor, range auto&& zakres) requires (!is_convertible_v<decltype(zakres), string>)
         {
                 auto obecny = begin(zakres);
 
