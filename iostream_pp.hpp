@@ -1,3 +1,13 @@
+/**
+* Date: 22.10.2020 15:34
+* Copyright by Antoni Kiedos
+**/
+
+/*
+An extension to the iostream library: "iostream++"
+Include directive name: "iostream_pp.hpp"
+*/
+
 #include "simple_nmespace_library.hpp"
 #include <concepts>
 using namespace std;
