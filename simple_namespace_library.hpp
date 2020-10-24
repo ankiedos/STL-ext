@@ -2,7 +2,6 @@
 * Date: 14.10.2020 19:45
 * Copyright by Antoni Kiedos
 * Namespace out is based on https://github.com/Fureeish/easy-library.git
-* All rights reserved
 **/
 
 /*
