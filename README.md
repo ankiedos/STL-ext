@@ -6,7 +6,7 @@ Dodatki do różnych standardowych bibliotek. Add-ons for various standard libra
 ### przestrzeń nazw concepts/namespace concepts:
 #### przestrzeń nazw numberProperties/namespace numberProperties:
 - evn()--lambda sprawdzająca czy parzyste __/__ lambda checking if even
-- odd()--lambda sprawdzająca czy nieparzyste __/__lambda checking if odd
+- odd()--lambda sprawdzająca czy nieparzyste __/__ lambda checking if odd
 - cngr_mod()--lambda sprawdzająca czy ta sama reszta z dielenia __/__ lambda checking if equal remainder
 - ngt()--lambda sprawdzająca czy ujemne __/__ lambda checking if negative
 - pst()--lambda sprawdzająca czy dodatnie __/__ lambda checking if positive
