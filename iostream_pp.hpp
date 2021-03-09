@@ -12,9 +12,10 @@ Include directive name: "iostream_pp.hpp"
 #include<concepts>
 #include<ranges>
 #include<iostream>
+
 namespace out
 {
-    ostream& operator<<(std::ostream& set, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
+    std::ostream& operator<<(std::ostream& set, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
     {
         auto current = std::begin(range);
 
