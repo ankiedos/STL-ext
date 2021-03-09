@@ -9,7 +9,7 @@ A simple namespace library
 */
 
 #include<iostream>
-#include<concepts>
+#include<concept>
 #include<cmath>
 #include<ranges>
 
