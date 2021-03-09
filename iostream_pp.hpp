@@ -8,28 +8,27 @@ An extension to the iostream library: "iostream++"
 Include directive name: "iostream_pp.hpp"
 */
 
-#include "simple_nmespace_library.hpp"
-#include <concepts>
-using namespace std;
-using namespace std::ranges;
-using namespace out;
-
+#include "temp_lib.hpp"
+#include<concepts>
+#include<ranges>
+#include<iostream>
 namespace out
 {
-  ostream& operator<<(ostream& zbior, range auto&& zbior_r) requires (!is_convertible_v<decltype(range), string>)
-  {
-     auto teraz = begin(zbior_r);
+    ostream& operator<<(std::ostream& set, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
+    {
+        auto current = std::begin(range);
 
-                if (teraz == end(zbior_r))
-                {
-                        return zbior << "{}";
-                }
+        if(current == std::end(range))
+        {
+            return set << "{}";
+        }
 
-                zbior << '{' << *teraz;
-                while (++teraz != end(zbior_r))
-                {
-                    zbior << ',' << *teraz;
-                }
+        set << '{' << *current;
+        while(++current != std::end(range))
+        {
+            set << ',' << *current;
+        }
 
-               return zbior << '}';
+        return set << '}';
+    }
 }
