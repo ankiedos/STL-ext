@@ -1,5 +1,5 @@
 # library-plus-plus
-Dodatki do różnych standardowych bibliotek. Add-ons for various standard libraries.
+Dodatki do standardowej biblioteki C++. Add-ons for C++ standard library.
 
 # Dokumentacja/Documentation
 ## simple_namespace_library.hpp:
@@ -20,6 +20,6 @@ Dodatki do różnych standardowych bibliotek. Add-ons for various standard libra
 
 
 ### przestrzeń nazw out __/__ namespace out:
-- wektor << vec;--na podstawie https://github.com/Fureeish/easy-library.git wyświetlanie std::vector __/__ based on https://github.com/Fureeish/easy-library.git printing the std::vector
+- vector << vec;--na podstawie https://github.com/Fureeish/easy-library.git wyświetlanie std::vector __/__ based on https://github.com/Fureeish/easy-library.git printing the std::vector
 --------
 ### planowane __/__ planned:
