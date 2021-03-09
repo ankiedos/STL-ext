@@ -2,7 +2,7 @@
 Dodatki do standardowej biblioteki C++. Add-ons for C++ standard library.
 
 # Dokumentacja/Documentation
-## simple_namespace_library.hpp:
+## temp_lib.hpp:
 ### przestrzeń nazw concepts/namespace concepts:
 #### przestrzeń nazw numberProperties/namespace numberProperties:
 - evn--lambda sprawdzająca czy parzyste __/__ lambda checking if even
