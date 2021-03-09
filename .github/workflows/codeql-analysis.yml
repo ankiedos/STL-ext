@@ -50,8 +50,9 @@ jobs:
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Autobuild
-      run: g++ -I. -c temp_lib.hpp \
-           g++ -I. -c iostream_pp.hpp \
+      run: |
+           g++ -I. -c temp_lib.hpp
+           g++ -I. -c iostream_pp.hpp
            ar rcs libraryplusplus.a iostream_pp.o temp_lib.o
 
     # ℹ️ Command-line programs to run using the OS shell.
