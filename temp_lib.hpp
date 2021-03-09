@@ -41,21 +41,21 @@ namespace elementaryArithmetic
 
 namespace out
 {
-    ostream& operator<<(ostream& wektor, std::ranges::range auto&& zakres) requires (!is_convertible_v<decltype(zakres), string>)
+    ostream& operator<<(ostream& vector, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
     {
-        auto obecny = std::begin(zakres);
+        auto current = std::begin(range);
 
-        if(obecny == std::end(zakres))
+        if(current == std::end(range))
         {
-            return wektor << "||";
+            return vector << "||";
         }
 
-        wektor << '|' << *obecny;
-        while(++obecny != std::end(zakres))
+        vector << '|' << *current;
+        while(++current != std::end(range))
         {
-            wektor << ',' << *obecny;
+            vector << ',' << *current;
         }
 
-        return wektor << '|';
+        return vector << '|';
     }
 }
