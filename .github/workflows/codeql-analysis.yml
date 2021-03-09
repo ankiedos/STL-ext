@@ -51,8 +51,8 @@ jobs:
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Autobuild
       run: |
-           g++ -I. -c temp_lib.hpp
-           g++ -I. -c iostream_pp.hpp
+           g++ -I. -c temp_lib.hpp -std=c++2a
+           g++ -I. -c iostream_pp.hpp -std=c++2a
            ar rcs libraryplusplus.a iostream_pp.o temp_lib.o
 
     # ℹ️ Command-line programs to run using the OS shell.
