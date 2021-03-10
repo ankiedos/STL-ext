@@ -9,13 +9,18 @@ Include directive name: "iostream_pp.hpp"
 */
 
 #include "temp_lib.hpp"
+#ifdef __VSCODE__
+#define __cpp_lib_concepts
+#endif
 #include<concepts>
 #include<ranges>
 #include<iostream>
-
+#ifdef __VSCODE__
+#pragma warning(disable : 135 3249)
+#endif
 namespace out
 {
-    std::ostream& operator<<(std::ostream& set, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
+    std::ostream& operator<<(std::ostream& set, std::ranges::range auto&& range) requires (!std::is_convertible_v<decltype(range), std::string>)
     {
         auto current = std::begin(range);
 
