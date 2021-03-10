@@ -9,11 +9,19 @@ A simple namespace library
 */
 
 #include<iostream>
-#include<concept>
+#include<concepts>
 #include<cmath>
 #include<ranges>
+#include<optional>
+#include<algorithm>
+#include<cassert>
 
-namespace concepts
+namespace Concepts
+{
+    template<typename T>
+    concept is_sorted = requires(T cont) { for(size_t i = 0; i < cont.size(); i++) { cont[i] < cont[i + 1]; } };
+}
+namespace Filters
 {
     namespace numberProperties
     {
@@ -39,9 +47,54 @@ namespace elementaryArithmetic
         }
         return a;
     }
+    auto fast_power = [](auto a, auto e)
+    {
+        auto res = 1.0;
+        while(e > 0)
+        {
+            if(e & 1)
+                res *= a;
+            a *= a;
+            e >>= 1;
+        }
+        return res;
+    }
 }
-
-namespace out
+namespace Algorithms
+{
+    std::optional<auto> BinarySearch(auto min, auto x, auto max)
+    {
+        assert(min < max);
+        auto middle = min + max / 2;
+        if(x > middle) BinarySearch(middle, max);
+        else if(x < middle) BinarySearch(min, middle);
+        else if(x == middle) return x;
+        else return {};
+    }
+    std::optional<auto> SortAndBinarySearch(auto min, auto x, auto max)
+    {
+        std::sort(min, max);
+        return BinarySearch(min, x, max);
+    }
+    namespace Ranges
+    {
+        template<typename Searched, Concepts::is_sorted Container = std::vector<Searched>>
+        std::optional<auto> BinarySearch(Container container, Searched x)
+        {
+            auto middle = container.begin() + container.end() / 2;
+            if(x > middle) BinarySearch(middle, container.end());
+            else if(x < middle) BinarySearch(container.begin(), middle);
+            else if(x == middle) return x;
+            else return {};
+        }
+        std::optional<auto> SortAndBinarySearch(auto container, auto x)
+        {
+            std::ranges::sort(container);
+            return BinarySearch(container, x);
+        }
+    }
+}
+namespace Out
 {
     std::ostream& operator<<(std::ostream& vector, std::ranges::range auto&& range) requires (!is_convertible_v<decltype(range), std::string>)
     {
