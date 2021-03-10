@@ -13,7 +13,7 @@ add_library(stdc++pp STATIC iostream_pp.hpp temp_lib.hpp)
 
 add_executable(lib++_ut maintest.cpp ${TEST_FILES})
 target_link_libraries(lib++_ut ${GTEST_MAIN_LIBRARY}
-				                       ${GTEST_LIBRARY}
-                    			     ${GMOCK_MAIN_LIBRARY}
-				                       ${GMOCK_LIBRARY}
+                               ${GTEST_LIBRARY}
+                               ${GMOCK_MAIN_LIBRARY}
+                               ${GMOCK_LIBRARY}
                                stdc++pp)
