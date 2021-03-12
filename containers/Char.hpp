@@ -32,19 +32,28 @@ MAIN_NS_BEGIN
             Char operator =(char&& c) { this->ch = std::move(c); return *this; }
             char GetChar() const { return this->ch; }
             Char SetChar(char c) { this->ch = c; return *this; }
-            char* ToCString() { return (char*)(this->ch); }
+            char* ToCString() { return (char*)(this->GetChar()); }
             std::string ToString() { return std::string(this->ToCString()); }
-            bool IsNumeric() const { return (this->ch >= 48 && this->ch <= 57); }
-            bool IsAlpha() const { return ((this->ch >= 65 && this->ch <= 90) || (this->ch >= 97 && this->ch <= 122)); }
+            bool IsNumeric() const { return (this->GetChar() >= 48 && this->GetChar() <= 57); }
+            bool IsAlpha() const { return ((this->GetChar() >= 65 && this->GetChar() <= 90) || (this->GetChar() >= 97 && this->GetChar() <= 122)); }
             bool IsAlphaNumeric() const { return (this->IsAlpha() || this->IsNumeric()); }
             bool IsCapital() const
             {
                 try
                 {
                     if(!this->IsAlpha()) throw Exceptions::IsNotAlphaException("Object cannot be capital due to it is not alphabetic character!\n");
-                    else return (this->ch >= 65 && this->ch <= 90);
+                    else return (this->GetChar() >= 65 && this->GetChar() <= 90);
                 }
-                catch (const Exceptions::IsNotAlphaException& e) { std::cerr << e.what(); return 0; }
+                catch(const Exceptions::IsNotAlphaException& e) { std::cerr << e.what(); return false; }
+            }
+            bool IsLowercase() const
+            {
+                try
+                {
+                    if(!this->IsAlpha()) throw Exceptions::IsNotAlphaException("Object cannot be lowercase due to it is not alphabetic caracter!\n");
+                    else return (this->GetChar() >= 97 && this->GetChar() <= 122);
+                }
+                catch(const Exceptions::IsNotAlphaException& e) { std::cerr << e.what(); return false; }
             }
         };
         Char char_cast(char arg) { return Char(arg); }
