@@ -1,0 +1,5 @@
+containers:
+  - args:
+    description: for uniform passing function arguments
+  - HashMap:
+    description: HashMap<int>.Add(1) creates std::map<int, decltype(std::hash<int>()). This example maps 1 to std::hash<int>(1) >> position
