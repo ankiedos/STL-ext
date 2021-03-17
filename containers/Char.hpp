@@ -26,14 +26,18 @@ MAIN_NS_BEGIN
             Char(Char&& other) : Char{std::move(other)} {}
             Char(char&& c) : ch{std::move(c)} {}
             ~Char() = default;
+
             Char operator =(char c) { this->ch = c; return *this; }
             Char operator =(const Char& other) { this->ch = other.ch; return *this; }
             Char operator =(Char&& other) { this->ch = std::move(other).ch; return *this; }
             Char operator =(char&& c) { this->ch = std::move(c); return *this; }
+
             char GetChar() const { return this->ch; }
             Char SetChar(char c) { this->ch = c; return *this; }
+
             char* ToCString() { return (char*)(this->GetChar()); }
             std::string ToString() { return std::string(this->ToCString()); }
+
             bool IsNumeric() const { return (this->GetChar() >= 48 && this->GetChar() <= 57); }
             bool IsAlpha() const { return ((this->GetChar() >= 65 && this->GetChar() <= 90) || (this->GetChar() >= 97 && this->GetChar() <= 122)); }
             bool IsAlphaNumeric() const { return (this->IsAlpha() || this->IsNumeric()); }
