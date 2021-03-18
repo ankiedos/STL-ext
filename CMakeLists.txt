@@ -9,12 +9,25 @@ enable_language(CXX)
 set(TEST_FILES "temp_lib_ut.cpp"
                "iostream_pp_ut.cpp")
 
+add_subdirectory(includes)
+add_subdirectory(includes/containers)
+set(CONTAINERS includes/containers/Char.hpp)
+
+add_subdirectory(includes/math)
+set(MATH includes/math/Equations.hpp)
+
+add_subdirectory(tests)
+
 include(FindGTest.cmake)
-add_library(stdc++pp STATIC iostream_pp.hpp temp_lib.hpp)
+add_library(stdc++pp STATIC iostream_pp.hpp
+                            temp_lib.hpp
+                            ${CONTAINERS}
+                            ${MATH}
+                            defs.hpp)
 set_target_properties(stdc++pp PROPERTIES LINKER_LANGUAGE CXX)
 add_executable(lib++_ut maintest.cpp ${TEST_FILES})
 target_link_libraries(lib++_ut ${GTEST_MAIN_LIBRARY}
                                ${GTEST_LIBRARY}
                                ${GMOCK_MAIN_LIBRARY}
                                ${GMOCK_LIBRARY}
-                               stdc++pp.lib)
+                               stdc++pp.a)
