@@ -20,14 +20,8 @@ MAIN_NS_BEGIN
         class Char
         {
             char ch;
-            char DereferenceInitList(const std::initializer_list<char>& list)
-            {
-                return const_cast<char*>(list.begin())[0];
-            }
-            char DereferenceInitList(std::initializer_list<char>&& list)
-            {
-                return const_cast<char*>(std::move(list.begin()))[0];
-            }
+            char DereferenceInitList(const std::initializer_list<char>& list) { return const_cast<char*>(list.begin())[0]; }
+            char DereferenceInitList(std::initializer_list<char>&& list) { return const_cast<char*>(std::move(list.begin()))[0]; }
         public:
             Char() = default;
             Char(const char& c) : ch{c} {}
@@ -44,16 +38,8 @@ MAIN_NS_BEGIN
             Char& operator =(char&& c) { this->ch = std::move(c); return *this; }
             Char& operator =(const Char& other) { this->ch = other.ch; return *this; }
             Char& operator =(Char&& other) { this->ch = std::move(other.ch); return *this; }
-            Char& operator =(const std::initializer_list<char>& list)
-            {
-                ch = DereferenceInitList(list);
-                return *this;
-            }
-            Char& operator =(std::initializer_list<char>&& list)
-            {
-                ch = DereferenceInitList(std::move(list));
-                return *this;
-            }
+            Char& operator =(const std::initializer_list<char>& list) { ch = DereferenceInitList(list); return *this; }
+            Char& operator =(std::initializer_list<char>&& list) { ch = DereferenceInitList(std::move(list)); return *this; }
 
             char GetChar() const { return ch; }
             Char SetChar(char c) { this->ch = c; return *this; }
