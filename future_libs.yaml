@@ -3,3 +3,10 @@ containers:
     description: for uniform passing function arguments
   - HashMap:
     description: HashMap<int>.Add(1) creates std::map<int, decltype(std::hash<int>()). This example maps 1 to std::hash<int>(1) >> position
+math:
+  - Linear:
+    description: linear equations
+  - Quadratic:
+    description: quadratic equations
+  - Foreign/extern:
+    description: incorporation of extension to cmath from https://github.com/ankiedos/Repozytorium1/ext_cmath.hpp
