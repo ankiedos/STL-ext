@@ -12,7 +12,7 @@ MAIN_NS_BEGIN
             {
                 const char* msg;
             public:
-                IsNotAlphaException(const char* msg) { this->msg = msg; }
+                IsNotAlphaException(const char* msg_) : msg{msg_} {}
                 const char* what() const noexcept override { return msg; }
             };
         }
@@ -29,7 +29,7 @@ MAIN_NS_BEGIN
 
             Char operator =(char c) { this->ch = c; return *this; }
             Char operator =(const Char& other) { this->ch = other.ch; return *this; }
-            Char operator =(Char&& other) { this->ch = std::move(other).ch; return *this; }
+            Char operator =(Char&& other) { this->ch = std::move(other.ch); return *this; }
             Char operator =(char&& c) { this->ch = std::move(c); return *this; }
 
             char GetChar() const { return this->ch; }
