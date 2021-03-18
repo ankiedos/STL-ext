@@ -2,6 +2,7 @@
 #include<type_traits>
 #include<exception>
 #include<iostream>
+#include<initializer_list>
 #include<..\..\defs.hpp>
 MAIN_NS_BEGIN
     namespace Types
@@ -20,17 +21,23 @@ MAIN_NS_BEGIN
         {
             char ch;
         public:
-            Char(char c) : ch{c} {}
             Char() = default;
+            Char(const char& c) : ch{c} {}
+            Char(char&& c) : ch{std::move(c)} {}
+
             Char(const Char& other) : ch{other.ch} {}
             Char(Char&& other) : Char{std::move(other)} {}
-            Char(char&& c) : ch{std::move(c)} {}
+
+            Char(const std::initializer_list<char>& list) : ch{list[0]} {}
+            Char(std::initializer_list<char>&& list) : ch{std::move(list[0])} {}
             ~Char() = default;
 
-            Char operator =(char c) { this->ch = c; return *this; }
+            Char operator =(const char& c) { this->ch = c; return *this; }
+            Char operator =(char&& c) { this->ch = std::move(c); return *this; }
             Char operator =(const Char& other) { this->ch = other.ch; return *this; }
             Char operator =(Char&& other) { this->ch = std::move(other.ch); return *this; }
-            Char operator =(char&& c) { this->ch = std::move(c); return *this; }
+            Char& operator =(const std::initializer_list<char>& list) { ch{list[0]}; }
+            Char& operator =(std::initializer_list<char>&& list) { ch{std::move(list[0])}; }
 
             char GetChar() const { return this->ch; }
             Char SetChar(char c) { this->ch = c; return *this; }
