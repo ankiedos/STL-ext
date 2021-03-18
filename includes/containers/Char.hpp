@@ -3,7 +3,7 @@
 #include<exception>
 #include<iostream>
 #include<initializer_list>
-#include<..\..\defs.hpp>
+#include<C:\Users\antek\Desktop\informatyka\GITHUB_Projekty\library-plus-plus\defs.hpp>
 MAIN_NS_BEGIN
     namespace Types
     {
@@ -20,29 +20,45 @@ MAIN_NS_BEGIN
         class Char
         {
             char ch;
+            char DereferenceInitList(const std::initializer_list<char>& list)
+            {
+                return const_cast<char*>(list.begin())[0];
+            }
+            char DereferenceInitList(std::initializer_list<char>&& list)
+            {
+                return const_cast<char*>(std::move(list.begin()))[0];
+            }
         public:
             Char() = default;
             Char(const char& c) : ch{c} {}
             Char(char&& c) : ch{std::move(c)} {}
 
             Char(const Char& other) : ch{other.ch} {}
-            Char(Char&& other) : Char{std::move(other)} {}
+            Char(Char&& other) : ch{std::move(other.ch)} {}
 
-            Char(const std::initializer_list<char>& list) : ch{list[0]} {}
-            Char(std::initializer_list<char>&& list) : ch{std::move(list[0])} {}
+            Char(const std::initializer_list<char>& list) : ch{DereferenceInitList(list)} {}
+            Char(std::initializer_list<char>&& list) : ch{DereferenceInitList(std::move(list))} {}
             ~Char() = default;
 
-            Char operator =(const char& c) { this->ch = c; return *this; }
-            Char operator =(char&& c) { this->ch = std::move(c); return *this; }
-            Char operator =(const Char& other) { this->ch = other.ch; return *this; }
-            Char operator =(Char&& other) { this->ch = std::move(other.ch); return *this; }
-            Char& operator =(const std::initializer_list<char>& list) { ch{list[0]}; }
-            Char& operator =(std::initializer_list<char>&& list) { ch{std::move(list[0])}; }
+            Char& operator =(const char& c) { this->ch = c; return *this; }
+            Char& operator =(char&& c) { this->ch = std::move(c); return *this; }
+            Char& operator =(const Char& other) { this->ch = other.ch; return *this; }
+            Char& operator =(Char&& other) { this->ch = std::move(other.ch); return *this; }
+            Char& operator =(const std::initializer_list<char>& list)
+            {
+                ch = DereferenceInitList(list);
+                return *this;
+            }
+            Char& operator =(std::initializer_list<char>&& list)
+            {
+                ch = DereferenceInitList(std::move(list));
+                return *this;
+            }
 
-            char GetChar() const { return this->ch; }
+            char GetChar() const { return ch; }
             Char SetChar(char c) { this->ch = c; return *this; }
 
-            char* ToCString() { return (char*)(this->GetChar()); }
+            char* ToCString() { return const_cast<char*>(this->GetChar() + "\0"); }
             std::string ToString() { return std::string(this->ToCString()); }
 
             bool IsNumeric() const { return (this->GetChar() >= 48 && this->GetChar() <= 57); }

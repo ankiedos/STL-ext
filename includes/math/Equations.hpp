@@ -1,4 +1,4 @@
-#include<..\..\defs.hpp>
+#include<C:\Users\antek\Desktop\informatyka\GITHUB_Projekty\library-plus-plus\defs.hpp>
 #include<initializer_list>
 template<typename Arg, typename Solution = Arg>
 class Equation
