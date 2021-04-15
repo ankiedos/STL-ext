@@ -1,5 +1,6 @@
-#include<C:\Users\antek\Desktop\informatyka\GITHUB_Projekty\library-plus-plus\defs.hpp>
+#include<defs.hpp>
 #include<initializer_list>
+#include<submodules/nameof/include/nameof.hpp>
 
 MAIN_NS_BEGIN
 namespace Math
@@ -23,7 +24,7 @@ namespace Math
         Params a, b;
 
     public:
-        Solution operator ()(Arg arg) override { return a * arg + b; }
+        Solution operator ()(Arg arg) override { SAX::debug_info += nameof::nameof(this) + "(" + arg + "), result: " + Print() - (nameof::nameof(this) + "(x)\n"); return a * arg + b; }
 
         Linear() = default;
         Linear(const Params& a_, const Params& b_) : a{a_}, b{b_} {}
@@ -39,25 +40,29 @@ namespace Math
         Linear& operator =(Params&& a_, Params&& b_) { a = std::move(a_); b = std::move(b_); return *this; }
         Linear& operator =(const Linear& other) { a = other.a; b = other.b; return *this; }
         Linear& operator =(Linear&& other) { a = std::move(other.a); b = std::move(other.b); return *this; }
-        Linear& operator =(const std::initalizer_list<Params>& list) { a = list[0]; b = list[1]; return *this; }
-        Linear& operator =(std::initalizer_list<Params>&& list) { a = std::move(list[0]); b = std::move(list[1]); return *this; }
+        Linear& operator =(const std::initializer_list<Params>& list) { a = list[0]; b = list[1]; return *this; }
+        Linear& operator =(std::initializer_list<Params>&& list) { a = std::move(list[0]); b = std::move(list[1]); return *this; }
 
         ~Linear() = default;
 
         std::ostream& operator <<(std::ostream& eq) override
         {
-            if(a == 1) eq << "f(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == -1) eq << "f(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == 0) eq << "f(x) = " << (b == 0 ? 0 : b);
-            else eq << "f(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            if(a == 1) eq << nameof::nameof(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == -1) eq << nameof::nameof(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == 0) eq << nameof::nameof(this) << "(x) = " << (b == 0 ? 0 : b);
+            else eq << nameof::nameof(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
             return eq;
         }
-        void Print(const std::string& name)
+        void Print()
         {
-            if(a == 1) std::cout << name << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == -1) std::cout << name << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == 0) std::cout << name << "(x) = " << (b == 0 ? 0 : b);
-            else std::cout << name << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            if(a == 1) std::cout << nameof::nameof(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == -1) std::cout << nameof::nameof(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == 0) std::cout << nameof::nameof(this) << "(x) = " << (b == 0 ? 0 : b);
+            else std::cout << nameof::nameof(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+        }
+        class SAX
+        {
+            static std::string debug_info = "";
         }
     };
 

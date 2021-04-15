@@ -1,0 +1,3 @@
+[submodule "submodules/nameof"]
+	path = submodules/nameof
+	url = https://github.com/neargye/nameof.git

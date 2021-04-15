@@ -1,4 +1,4 @@
-#define MAIN_NS_BEGIN namespace ankiedos {
+#define MAIN_NS_BEGIN namespace stdext {
 #define MAIN_NS_END }
 #include<type_traits>
 #include<initializer_list>
