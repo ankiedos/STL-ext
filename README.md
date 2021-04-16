@@ -40,7 +40,7 @@ then do:
 - intgr--lambda checking if integer **WARNING: It does not apply to the int, but whether it has something after the decimal point (e.g. with 1.0 will return true).**
 - flt--lambda checking if float number **WARNING: It does not apply to the float, but whether it has something after the decimal point (e.g. with 1.0 will return false).**
 - dv3--lambda checking if divisible by 3
-- dvdn--lambda checking if divisibile by something
+- dvdn--lambda checking if divisible by something
 
 ### namespace Arithmetic:
 - power -- filter returning a (second arg)th power of its first arg

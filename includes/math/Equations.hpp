@@ -24,7 +24,7 @@ namespace Math
         Params a, b;
 
     public:
-        Solution operator ()(Arg arg) override { SAX::debug_info += nameof::nameof(this) + "(" + arg + "), result: " + Print() - (nameof::nameof(this) + "(x)\n"); return a * arg + b; }
+        Solution operator ()(Arg arg) override { SAX::debug_info += NAMEOF(this) + "(" + arg + "), result: " + Print() - (NAMEOF(this) + "(x)\n"); return a * arg + b; }
 
         Linear() = default;
         Linear(const Params& a_, const Params& b_) : a{a_}, b{b_} {}
@@ -47,18 +47,18 @@ namespace Math
 
         std::ostream& operator <<(std::ostream& eq) override
         {
-            if(a == 1) eq << nameof::nameof(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == -1) eq << nameof::nameof(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == 0) eq << nameof::nameof(this) << "(x) = " << (b == 0 ? 0 : b);
-            else eq << nameof::nameof(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            if(a == 1) eq << NAMEOF(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == -1) eq << NAMEOF(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == 0) eq << NAMEOF(this) << "(x) = " << (b == 0 ? 0 : b);
+            else eq << NAMEOF(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
             return eq;
         }
         void Print()
         {
-            if(a == 1) std::cout << nameof::nameof(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == -1) std::cout << nameof::nameof(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
-            else if(a == 0) std::cout << nameof::nameof(this) << "(x) = " << (b == 0 ? 0 : b);
-            else std::cout << nameof::nameof(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            if(a == 1) std::cout << NAMEOF(this) << "(x) = x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == -1) std::cout << NAMEOF(this) << "(x) = -x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
+            else if(a == 0) std::cout << NAMEOF(this) << "(x) = " << (b == 0 ? 0 : b);
+            else std::cout << NAMEOF(this) << "(x) = " << a << "x" << (b == 0 ? "" : " + ") << (b == 0 ? "" : b);
         }
         class SAX
         {
