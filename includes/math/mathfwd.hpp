@@ -1,3 +1,4 @@
+#include<ratio>
 MAIN_NS_BEGIN
 namespace Math
 {
