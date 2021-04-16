@@ -1,19 +1,19 @@
 #include<defs.hpp>
 #include<initializer_list>
 #include<submodules/nameof/include/nameof.hpp>
-
+#include<../containers/Object.hpp>
 MAIN_NS_BEGIN
 namespace Math
 {
     template<typename Arg, typename Solution = Arg>
-    class Equation
+    class basic_Equation : ::stdext::Types::Object<Equation<Arg, Solution>>
     {
-        protected:
+    protected:
         Solution solution;
         virtual Solution operator ()(Arg arg) = 0;
         virtual std::ostream& operator <<(std::ostream& eq) = 0;
         virtual void Print() = 0;
-        private:
+    private:
         Equation() = default;
     };
 
@@ -68,6 +68,7 @@ namespace Math
 
     // Example:
     // Linear f = Linear(1, 1);
-    // std::cout << "When x = 0 and " << f.Print("f") << " then f(x) = " f(0) << "\n"; // Prints "When x = 0 and f(x) = 1x + 1 ten f(x) = 1"
+    // std::cout << "When x = 0 and " << f.Print() << " then f(x) = " f(0) << "\n"; // Prints "When x = 0 and f(x) = x + 1 then f(x) = 1"
 }
 MAIN_NS_END
+#include<mathfwd.hpp>

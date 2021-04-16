@@ -17,7 +17,7 @@ namespace Types
         bool instanceof() { return std::is_same_v<decltype(this), decltype(U)>; }
         template<typename U>
         bool IsSameType(U obj) { return std::is_same_v<decltype(this), decltype(obj)>; }
-        Object() : T() { instances += dynamic_cast<T>(this); }
+        Object() : T() { T::instances += dynamic_cast<T>(this); }
         ~Object() = default; 
         virtual bool Equal(const T& other) = 0;
         virtual friend bool operator ==(const T& lhs, const T& rhs) = 0;

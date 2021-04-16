@@ -18,6 +18,50 @@ MAIN_NS_BEGIN
                 const char* what() const noexcept override { return msg; }
             };
         }
+        class Char;
+        template<typename Dest, typename Src>
+        Dest char_cast(Src arg);
+
+        template<typename Dest, typename SFINAE = std::enable_if_t<!std::is_same_v<Dest, char>>>
+        Dest char_cast<Dest, char&>(char& arg)
+        {
+            return static_cast<Dest>(arg);
+        }
+        template<typename Dest, typename SFINAE = std::enable_if_t<!std::is_same_v<Dest, Char>>>
+        Dest char_cast<Dest, Char&>(Char& arg)
+        {
+            return char_cast<Dest>(arg.GetChar());
+        }
+        template<typename Src, typename SFINAE = std::enable_if_t<!std::is_same_v<char, Src>>>
+        char char_cast<char, Src>(Src arg)
+        {
+            return static_cast<char>(arg));
+        }
+
+        template<typename Src, typename SFINAE = std::enable_if_t<!std::is_same_v<Char, Src>>> // From Src To Char
+        Char char_cast<Char, Src>(Src arg)
+        {
+            return Char(char_cast<char>(arg));
+        }
+
+        template<> // Specialisation of ^ with default
+        Char char_cast<Char, char&>(char& arg)
+        {
+            return Char(arg);
+        }
+
+        template<> // Specialisation; From Char& To char
+        char char_cast<char, Char&>(Char& arg)
+        {
+            return arg.GetChar();
+        }
+        // Char char_cast(char arg) { return Char(arg); }
+        // char char_cast(const Char& arg) { return arg.GetChar(); }
+
+        // LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
+        // T char_cast(const Char& arg) { return static_cast<T>(char_cast(arg)); }
+        // LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
+        // Char char_cast(const T& arg) { static_assert(std::is_same_v<decltype(T), decltype(Char)>, "Why You want to convert from Char to Char?"); return char_cast(static_cast<char>(arg)); }
         class Char
         {
             char ch;
@@ -71,28 +115,22 @@ MAIN_NS_BEGIN
             LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
             friend String operator *(const T& lhs, const Char& rhs)
             {
-                static_assert(0 > 2, "stdext::Types::String is not implemented!");
+                static_assert(0 < 2, "stdext::Types::String is not implemented!");
                 return String(rhs, lhs);
             }
             LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
             friend String operator *(const Char& lhs, const T& rhs)
             {
-                static_assert(0 > 2, "stdext::Types::String is not implemented!");
+                static_assert(0 < 2, "stdext::Types::String is not implemented!");
                 return String(lhs, rhs);
             }
             friend Char operator *(const Char& lhs, const Char& rhs)
             {
-                return Char(char_cast(static_cast<char>(char_cast<int>(lhs) * char_cast<int>(rhs) % 128)));
+                return Char(char_cast<char>(char_cast<int>(lhs) * char_cast<int>(rhs) % 128));
+                // return Char(static_cast<char>(lhs.GetChar() * rhs.GetChar() % 128));
             }
             friend Char operator ""__Char(const char ch) { return Char(ch); }
         };
-        Char char_cast(char arg) { return Char(arg); }
-        char char_cast(const Char& arg) { return arg.GetChar(); }
-
-        LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
-        T char_cast(const Char& arg) { return static_cast<T>(char_cast(arg)); }
-        LIBXX_TEMPLATE_SFINAE_INTEGRAL(T)
-        Char char_cast(const T& arg) { return char_cast(static_cast<char>(arg)); }
 
         std::array<char, 128> Char::ASCII = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
         26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,

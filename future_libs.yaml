@@ -1,3 +1,5 @@
+whole library:
+  - add mirror with STL coding and naming conventions
 containers:
   - args:
     description: for uniform passing function arguments
@@ -10,3 +12,17 @@ math:
     description: quadratic equations
   - Foreign/extern:
     description: incorporation of extension to cmath from https://github.com/ankiedos/Repozytorium1/ext_cmath.hpp
+types:
+  - String:
+    description: string type
+  - StaticString:
+    description: constant-length string
+  - (existing) Char:
+    description: transformations (ToUpper, etc.)
+project patterns:
+  - Singleton:
+    description: singleton
+  - Factory:
+    description: abstract factory
+  - Maker:
+    description: implementation of variation of Single Responsibility Principle rule; example stdext::Patterns::Maker mak(stdext::Patterns::Resposiblity::MATH); unsigned hashed_3 = mak("hash", 3);
