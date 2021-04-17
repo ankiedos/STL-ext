@@ -1,5 +1,14 @@
 whole library:
   - add mirror with STL coding and naming conventions
+  - incorporate nlohmann::json, libxml, MHD and other serialisation libs as submodules
+sublibs:
+  - Types
+  - Containers
+  - Math
+  - Patterns
+  - Serialisation
+  - CharUtils
+  - StringUtils
 containers:
   - args:
     description: for uniform passing function arguments
@@ -18,7 +27,10 @@ types:
   - StaticString:
     description: constant-length string
   - (existing) Char:
-    description: transformations (ToUpper, etc.)
+    description: transformations (ToUpper, EscapeUTF8, etc.) (in CharUtils)
+    - NumericChar ('0', '1', '2', ...) and AlphaChar ('a', 'b', ..., 'A', 'B', ...) variations
+  - TemplateString:
+    description: example stdext::StringUtils::template<std::string>("Hello, {name}!", stdext::Serialisation::nlohmann::json({"name", name}));. In <> can only be std::string or stdext::StringUtils::TemplateString
 project patterns:
   - Singleton:
     description: singleton

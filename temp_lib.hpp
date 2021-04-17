@@ -2,24 +2,41 @@
 * Date: 14.10.2020 19:45
 * Copyright by Antoni Kiedos
 * Namespace out is based on https://github.com/Fureeish/easy-library.git
+* License: GNU GPLv3 or higher
 **/
 
 /*
-A simple namespace library
+A temporary library which will be divided into separate files
 */
 
 #include<iostream>
 #include<concepts>
+#include<vector>
 #include<cmath>
 #include<ranges>
 #include<optional>
 #include<algorithm>
 #include<cassert>
+#include<defs.hpp>
 
+MAIN_NS_BEGIN
 namespace Concepts
 {
     template<typename T>
-    concept is_sorted = requires(T cont) { for(size_t i = 0; i < cont.size(); i++) { cont[i] < cont[i + 1]; } };
+    concept is_sorted_container = requires(T cont)
+    {
+        std::sort(cont.begin(), cont.end()) == cont;
+        cont.begin();
+        cont.end();
+        cont.size();
+        cont.empty();
+        cont.emplace() || cont.push();
+    };
+    template<typename T> // For backward compatibility
+    concept is_sorted = requires(T cont)
+    {
+        std::sort(cont.begin(), cont.end()) == cont;
+    };
 }
 namespace Filters
 {
@@ -46,8 +63,11 @@ namespace elementaryArithmetic
             a *= a;
         }
         return a;
-    }
-    auto fast_power = [](auto a, auto e)
+    };
+}
+namespace Algorithms
+{
+    auto fast_power(auto a, auto e)
     {
         auto res = 1.0;
         while(e > 0)
@@ -59,10 +79,7 @@ namespace elementaryArithmetic
         }
         return res;
     }
-}
-namespace Algorithms
-{
-    std::optional<auto> BinarySearch(auto min, auto x, auto max)
+    std::optional<decltype(x)> BinarySearch(auto min, auto x, auto max) // "auto" is not allowed in this place
     {
         assert(min < max);
         auto middle = min + max / 2;
@@ -71,7 +88,7 @@ namespace Algorithms
         else if(x == middle) return x;
         else return {};
     }
-    std::optional<auto> SortAndBinarySearch(auto min, auto x, auto max)
+    std::optional<decltype(x)> SortAndBinarySearch(auto min, auto x, auto max)
     {
         std::sort(min, max);
         return BinarySearch(min, x, max);
@@ -79,7 +96,7 @@ namespace Algorithms
     namespace Ranges
     {
         template<typename Searched, Concepts::is_sorted Container = std::vector<Searched>>
-        std::optional<auto> BinarySearch(Container container, Searched x)
+        std::optional<decltype(x)> BinarySearch(Container container, Searched x)
         {
             auto middle = container.begin() + container.end() / 2;
             if(x > middle) BinarySearch(middle, container.end());
@@ -87,7 +104,7 @@ namespace Algorithms
             else if(x == middle) return x;
             else return {};
         }
-        std::optional<auto> SortAndBinarySearch(auto container, auto x)
+        std::optional<decltype(x)> SortAndBinarySearch(auto container, auto x)
         {
             std::ranges::sort(container);
             return BinarySearch(container, x);
@@ -114,3 +131,4 @@ namespace Out
         return vector << '|';
     }
 }
+MAIN_NS_END
