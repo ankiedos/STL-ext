@@ -23,7 +23,46 @@ MAIN_NS_BEGIN
 namespace Concepts
 {
     template<typename T>
-    concept is_sorted_container = requires(T cont)
+    concept CopyConstructible = requires()
+    {
+        T(typename const T&)
+    };
+    template<typename T>
+    concept IterableContainer = requires(T cont)
+    {
+        cont.begin() || cont.Begin();
+        cont.end() || cont.End();
+        T::iterator || T::Iterator;
+    };
+    template<typename T>
+    concept ReversibleIterableContainer = requires(T cont)
+    {
+        IterableContainer<T>;
+        cont.rbegin() || cont.Rbegin() || cont.RBegin();
+        cont.rend() || cont.Rend() || cont.REnd();
+        T::reverse_iterator || T::ReverseIterator;
+    };
+    template<typename T>
+    concept ConstantIterableContainer = requires(T cont)
+    {
+        cont.cbegin() || cont.Cbegin() || cont.CBegin();
+        cont.cend() || cont.Cend() || cont.CEnd();
+        T::const_iterator || T::ConstIterator;
+    };
+    template<typename T>
+    concept ConstantReversibleIterableContainer = requires(T cont)
+    {
+        cont.crbegin() || cont.Crbegin() || cont.CRbegin() || cont.CRBegin();
+        cont.crend() || cont.Crend() || cont.CRend() || cont.CREnd();
+        T::const_reverse_iterator || T::ConstReverseIterator;
+    };
+    template<typename T>
+    concept RandomAccessContainer = requires()
+    {
+        T::operator [];
+    };
+    template<typename T>
+    concept SortedContainer = requires(T cont)
     {
         std::sort(cont.begin(), cont.end()) == cont;
         cont.begin();
@@ -32,6 +71,10 @@ namespace Concepts
         cont.empty();
         cont.emplace() || cont.push();
     };
+    [[deprecated("concept template is_sorted_container<T> is deprecated. Please use SortedContainer instead!\n")]]
+    template<typename T>
+    concept is_sorted_container = SortedContainer;
+    [[deprecated("concept template is_sorted<T> is deprecated. Please use SortedContainer instead!\n")]]
     template<typename T> // For backward compatibility
     concept is_sorted = requires(T cont)
     {
@@ -64,52 +107,6 @@ namespace elementaryArithmetic
         }
         return a;
     };
-}
-namespace Algorithms
-{
-    auto fast_power(auto a, auto e)
-    {
-        auto res = 1.0;
-        while(e > 0)
-        {
-            if(e & 1)
-                res *= a;
-            a *= a;
-            e >>= 1;
-        }
-        return res;
-    }
-    std::optional<decltype(x)> BinarySearch(auto min, auto x, auto max) // "auto" is not allowed in this place
-    {
-        assert(min < max);
-        auto middle = min + max / 2;
-        if(x > middle) BinarySearch(middle, max);
-        else if(x < middle) BinarySearch(min, middle);
-        else if(x == middle) return x;
-        else return {};
-    }
-    std::optional<decltype(x)> SortAndBinarySearch(auto min, auto x, auto max)
-    {
-        std::sort(min, max);
-        return BinarySearch(min, x, max);
-    }
-    namespace Ranges
-    {
-        template<typename Searched, Concepts::is_sorted Container = std::vector<Searched>>
-        std::optional<decltype(x)> BinarySearch(Container container, Searched x)
-        {
-            auto middle = container.begin() + container.end() / 2;
-            if(x > middle) BinarySearch(middle, container.end());
-            else if(x < middle) BinarySearch(container.begin(), middle);
-            else if(x == middle) return x;
-            else return {};
-        }
-        std::optional<decltype(x)> SortAndBinarySearch(auto container, auto x)
-        {
-            std::ranges::sort(container);
-            return BinarySearch(container, x);
-        }
-    }
 }
 namespace Out
 {
