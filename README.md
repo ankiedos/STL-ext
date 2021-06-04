@@ -1,5 +1,6 @@
 # library-plus-plus
 Add-ons for C++ standard library.
+
 This repository has the following submodules:
 - [neargye/nameof](https://github.com/neargye/nameof), license: MIT
 # Troubleshooting builds (on Windows)
@@ -27,34 +28,41 @@ then do:
 
 # Documentation
 ## temp_lib.hpp:
-### namespace Concepts:
-- is_sorted<Container> -- checks if container is sorted
-
-### namespace Filters:
-#### namespace numberProperties:
-- evn--lambda checking if even
-- odd--lambda checking if odd
-- cngr_mod--lambda checking if equal remainder
-- ngt--lambda checking if negative
-- pst--lambda checking if positive
-- intgr--lambda checking if integer **WARNING: It does not apply to the int, but whether it has something after the decimal point (e.g. with 1.0 will return true).**
-- flt--lambda checking if float number **WARNING: It does not apply to the float, but whether it has something after the decimal point (e.g. with 1.0 will return false).**
-- dv3--lambda checking if divisible by 3
-- dvdn--lambda checking if divisible by something
+### namespace `Concepts`:
+- `is_sorted<Container>` -- checks if container is sorted [Deprecated]
+- `SortedContainer<Container>` -- checks if container of type `Container` is sorted
+- `CopyConstructible<T>` -- I think that it is known requirement
+- `IterableContainer<T>` -- methods `begin` or `Begin`, `end` or `End`, subtype `iterator` or `Iterator`
+- `ReversibleIterableContainer<T>` -- methods `rbegin` or `Rbegin` or `RBein`, `rend` or `Rend` or `REnd`, subtype `ReverseIterator` or `reverse_iterator`
+- `ConstantIterableContainer<T>` -- methods `cbegin` or `Cbegin` or `CBegin`, `cend` or `Cend` or `CEnd`, subtype `ConstIterator` or `const_iterator`
+- `ConstantReversibleIterableContainer<T>` -- methods `crbegin` or `Crbegin` or `CRbegin` or `CRBegin`, `crend` or `Crend` or `CRend` or `CREnd`, subtype `ConstReverseIterator` or `const_reverse_iterator
+- `RandomAccessContainer<T>` -- container `T` has to have `operator []`
+### namespace `Filters`:
+#### namespace `numberProperties`:
+- `evn`--lambda checking if even
+- `odd`--lambda checking if odd
+- `cngr_mod`--lambda checking if equal remainder
+- `ngt`--lambda checking if negative
+- `pst`--lambda checking if positive
+- `intgr`--lambda checking if integer **WARNING: It does not apply to the int, but whether it has something after the decimal point (e.g. with 1.0 will return true).**
+- `flt`--lambda checking if float number **WARNING: It does not apply to the float, but whether it has something after the decimal point (e.g. with 1.0 will return false).**
+- `dv3`--lambda checking if divisible by 3
+- `dvdn`--lambda checking if divisible by something
 
 ### namespace Arithmetic:
-- power -- filter returning a (second arg)th power of its first arg
-- fast_power -- filter using fast powering algorithm
+- `power` -- filter returning a (second arg)th power of its first arg
 
 ### namespace Algorithms:
 - `BinarySearch(min, x, max)` -- requires container being sorted, if `min == some_cont.begin() && max == some_cont.end()`
 - `SortAndBinarySearch(min, x, max)`
-#### namespace Ranges:
-ranged algorithms from Algorithm namespace
-- `BinarySearch<Searched, Container = std::vector<Searched>(container, x)` -- requires `Concepts:is_sorted<Container<Searched>>` being satisfied
+- `fast_power` -- filter using fast powering algorithm
+
+#### namespace `Ranges`:
+ranged algorithms from `Algorithm` namespace
+- `BinarySearch<Searched, Container = std::vector<Searched>>(container, x)` -- requires `Concepts::SortedContainer<Container<Searched>>` being satisfied
 - `SortAndBinarySearch(container, x)`
-### namespace Out:
-- `std::cout << vec;` -- based on https://github.com/Fureeish/easy-library.git; printing the std::vector
+### namespace `Out`:
+- `std::cout << vec;` -- based on https://github.com/Fureeish/easy-library.git; printing the `std::vector`
 --------
 ### planned:
 
